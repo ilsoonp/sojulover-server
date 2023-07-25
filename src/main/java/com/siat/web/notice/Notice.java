@@ -24,5 +24,12 @@ public class Notice {
 	private Date created_time = new Date();
 	private int count = 0;
 	
+	public void setViewCount(int i) {
+		
+	}
+	public int getViewCount() {
+		return count +=1;
+	}
+	
 	
 }

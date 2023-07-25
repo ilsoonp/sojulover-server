@@ -8,49 +8,43 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
 @Transactional 
+@Service
 public class NoticeService {
 
-	@Autowired
-	private NoticeRepository noticeRepository;
-	
-	public List<Notice> noticeList(){
-		
-		return noticeRepository.findAllDesc();
-	}
-	
-	
-	public void insertNotice(Notice notice) {
-		noticeRepository.save(notice);
-	}
-	
-	public Notice detailNotice(Notice notice) {
-		return noticeRepository.findById(notice.getNotice_id()).get();
-	}
-	public void updateNotice(Notice notice) {
-		Notice findNotice = noticeRepository.findById(notice.getNotice_id()).orElse(null);
-	    if (findNotice != null) {
-	        findNotice.setTitle(notice.getTitle());
-	        findNotice.setContent(notice.getContent());
+    @Autowired
+    private NoticeRepository noticeRepository;
 
-	        // 변경된 필드들을 저장
-	        noticeRepository.save(findNotice);
-	    }
-	}
-	public void deleteNotice(Notice notice) {
-		noticeRepository.deleteById(notice.getNotice_id());
-		
-	}
+    public List<Notice> noticeList() {
+        return noticeRepository.findAll();
+    }
 
-	public void increaseCount(Long getNotice_id) {
-		noticeRepository.increaseCount(getNotice_id);
-	}
+    public void insertNotice(Notice notice) {
+        noticeRepository.save(notice);
+    }
 
-	public Notice getNoticeByNotice(Long getNotice_id) {
-		return noticeRepository.findById(getNotice_id).orElse(null);
-	}
+    public Notice detailNotice(Long noticeId) {
+        return noticeRepository.findById(noticeId).orElse(null);
+    }
 
+    public void increaseCount(Long noticeId) {
+        Notice notice = noticeRepository.findById(noticeId).orElse(null);
+        if (notice != null) {
+            int currentCount = notice.getViewCount();
+            notice.setViewCount(currentCount + 1);
+            noticeRepository.save(notice);
+        }
+    }
 
+    public Notice getNoticeByNotice(Long noticeId) {
+        return noticeRepository.findById(noticeId).orElse(null);
+    }
 
+    public void updateNotice(Notice notice) {
+        noticeRepository.save(notice);
+    }
+
+    public void deleteNotice(Long noticeId) {
+        noticeRepository.deleteById(noticeId);
+    }
 }
