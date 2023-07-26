@@ -50,7 +50,7 @@ function Header({isLoggedIn,setIsLoggedIn,handleLogout}) {
                     <ul>
                         <li className="dropdown"><a href="#"><span>커뮤니티</span> <i className="bi bi-chevron-down"></i></a>
                             <ul>
-                                <li><a href="#">공지사항</a></li>
+                                <li><Link to="/noticeList">공지사항</Link></li>
                                 <li><a href="#">Q&A</a></li>
                                 <li><a href="#">멘토링,스터디</a></li>
                                 <li><a href="#">취업뉴스</a></li>
